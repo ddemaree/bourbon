@@ -1,54 +1,59 @@
-#Bourbon Sass Mixins
-The purpose of Bourbon Sass Mixins is to provide a comprehensive framework of sass mixins that are designed to be as vanilla as possible. Meaning they should not deter from the original CSS syntax. The mixins contain vendor specific prefixes for all CSS3 properties for support amongst modern browsers. The prefixes also ensure graceful degradation for older browsers that support only CSS3 prefixed properties.
+# Bourbon: A standard library for Sass
+
+Bourbon is delicious. It is also a standard library of Sass mixins (in SCSS syntax) providing robust, cross-browser CSS3 effects, preserving graceful degradation through browser prefixes where possible, but also not straying too far from the vanilla CSS syntax. CSS3 properties are specified as a stack in the order recommended by Dan Cederholm in [_CSS3 For Web Designers_](http://www.abookapart.com/products/css3-for-web-designers) (2009, A Book Apart).
+
+Here's an example:
+    
+    // Instead of doing this:
+    a.tab-button {
+        -webkit-border-radius: 2px 2px 0 0;
+        -moz-border-radius: 2px 2px 0 0;
+        -ms-border-radius: 2px 2px 0 0;
+        -o-border-radius: 2px 2px 0 0;
+        border-radius: 2px 2px 0 0;
+    }
+    
+    // Do this, it's equivalent:
+    @import 'bourbon';
+    
+    a.tab-button {
+        @include border-radius(2px 2px 0 0);
+    }
 
 
-#Requirements
-Sass 3.1+
+It also provides some useful functions for calculating modular scales based on the golden ratio (based in part on [the excellent work of Tim Brown](http://modularscale.com)), and grid widths (with support for fluid grid calculation coming soon).
 
+This version of Bourbon is forked from the one at <http://github.com/thoughtbot/bourbon>, by Phil LaPier and Chad Mazzola. Mad props to those guys for releasing this.
+
+These mixins/functions require Sass 3.1.1 or later. While Thoughtbot's core Bourbon library has a lot of twiddly knobs enabling support for non-Rails (or older Rails) projects, _this_ Bourbon is strictly to be used as a Rails engine in Rails 3.1 or later. A method for adding Bourbon mixins to the Sass load path in Sinatra or other Rack apps is on the todo list, but not here yet. The "copy into your project" approach Phil, Chad, et al have taken is okay, but is less okay than being able to simply include this CSS into one's app using Bundler, git, Sass, and the asset pipeline.
 
 #Install for Rails
 Update your Gemfile
 
-    gem 'bourbon'
-
+    gem 'bourbon', :git => 'https://github.com/ddemaree/bourbon.git'
+    
     bundle install
 
 ##Rails 3.1.x
-Comment-out the following sprocket directive in /application.css.scss (Remove the =)
 
-    * require_tree .
-
-Import the mixins at the beginning of your stylesheet
+Import the mixins at the beginning of any stylesheet that uses them.
 
     @import 'bourbon';
+    
+Note that because [Sprockets](http://github.com/sstephenson/sprockets), Rails's asset-serving framework, compiles SCSS files *before* requiring them into the main stylesheet, if you're using multiple `.scss` files in your project you'll need to require Bourbon (or any other mixins, for that matter) into each one individually.
 
-##Rails 3.0.9 and below
-For Rails < 3.1 you must run the installation rake task.
-This will copy the Sass files into your project's public/stylesheets/sass directory.
+To use the reset or normalize stylesheets, just include them via Sprockets (this will _only_ work in Rails 3.1):
+    
+    /*
+    * This will load: Bourbon's reset stylesheet, the current sheet,
+    *   then everything else
+    *= require reset
+    *= require_self
+    *= require_tree .
+    */
 
-    rake bourbon:install
+# Using Bourbon mixins
 
-Import the mixins at the beginning of your stylesheet
-
-    @import 'bourbon/bourbon';
-
-
-#Install without Rails
-The following script will generate a sass directory and convert all .css.scss to .scss extensions. The sass directory is for 'sass --watch' use outside of rails.  
-Preliminary step: clone the repo and cd into the directory.
-
-**Step 1:** Make script executable by changing file permission
-
-    chmod a+x generate-sass.sh
-
-**Step 2:** Generate files
-
-    ./generate-sass.sh
-
-**Step 3:** Move the new *sass* directory to your project's stylesheets directory.
-
-
-#Using Bourbon Vanilla Mixins
 Below are a few examples of mixin usage. Note that these are just a few, explore the repo to find out more.
 
 ###Animation
@@ -309,13 +314,9 @@ Currently the project is a work in progress. Feel free to help out.
 Credits
 -------
 
-![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
-
-Bourbon is maintained and funded by [thoughtbot, inc](http://thoughtbot.com/community)
-
-The names and logos for thoughtbot are trademarks of thoughtbot, inc.
+This fork of Bourbon is maintained by [David Demaree](http://log.demaree.me). It's based on work originally funded and released as open source by [thoughtbot, inc](http://thoughtbot.com/community) in 2011.
 
 License
 -------
 
-Bourbon is Copyright © 2011 thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
+Bourbon is free software, and may be redistributed under the terms specified in the LICENSE file.
