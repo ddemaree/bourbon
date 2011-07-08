@@ -7,16 +7,14 @@ Gem::Specification.new do |s|
   s.version     = Bourbon::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Phil LaPier", "Chad Mazzola", "Mike Burns"]
-  s.email       = ["support@thoughtbot.com"]
-  s.homepage    = "https://github.com/thoughtbot/bourbon"
-  s.summary     = "Bourbon Sass Mixins using SCSS syntax."
+  s.email       = ["david@typekit.com"]
+  s.homepage    = "https://github.com/ddemaree/bourbon"
+  s.summary     = "A standard library of SCSS mixins for CSS3 and more"
   s.description = <<-DESC
-The purpose of Bourbon Vanilla Sass Mixins is to provide a comprehensive framework of
-sass mixins that are designed to be as vanilla as possible. Meaning they
-should not deter from the original CSS syntax. The mixins contain vendor
-specific prefixes for all CSS3 properties for support amongst modern
-browsers. The prefixes also ensure graceful degradation for older browsers
-that support only CSS3 prefixed properties.
+Bourbon provides a simple yet robust set of Sass mixins (in SCSS syntax) for adding
+CSS3 features to web pages while ensuring graceful degradation via browser prefixes.
+It also includes some useful functions to aid in developing advanced styles, such as
+modular scales based on the golden ratio, and a grid-width calculator.
   DESC
 
   s.rubyforge_project = "bourbon"

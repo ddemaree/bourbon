@@ -1,13 +1,13 @@
 module Bourbon
-  class Engine < ::Rails::Engine
-    require 'bourbon/engine'
-  end
+  class << self
+    def root
+      Pathname.new( File.expand_path("../../", __FILE__) )
+    end
 
-  module Rails
-    class Railtie < ::Rails::Railtie
-      rake_tasks do
-        load "tasks/install.rake"
-      end
+    def stylesheets_path
+      Bourbon.root.join("app", "assets", "stylesheets")
     end
   end
 end
+
+require 'bourbon/railtie' if defined?(Rails)

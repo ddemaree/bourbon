@@ -1,3 +1,8 @@
+// TODO: Convert from pixels to raw numbers
+// @function grid-span($n) {
+//   @return ($n * 60) + (($n - 1) * 20);
+// }
+
 @function grid-width($n) {
   @return $n * $gw-column + ($n - 1) * $gw-gutter;
 }
